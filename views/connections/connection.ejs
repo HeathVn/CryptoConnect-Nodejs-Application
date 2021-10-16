@@ -1,0 +1,31 @@
+<%- include('../partials/header.ejs')%>
+
+      <div id="info1">
+
+        <% if(connection !== null){ %>
+
+        <h2 id="topic"> <%=connection.name%> </h2>
+        <form id="delUpd">
+        <button id="update" formmethod = "GET" formaction = "/connections/<%=connection.id%>/edit">Update</button>
+        <button id="delete" type="submit" formmethod = "POST" formaction = "/connections/<%=connection.id%>?_method=DELETE">Delete</button>
+        </form>
+        <img alt="" id ="eth" src="<%= connection.image %>" />
+        
+          <div id="info-inner">
+            <h3 id="connectHost"> Hosted by <%=connection.hostName%></h3>
+            <p> <%= connection.date %></p>
+            <p> <%= connection.startTime %> -  <%= connection.endTime %></p>
+            <p> Prudential Tower, Boston,MA</p>
+
+          </div>
+      </div>
+      <div id="info2">
+          <h2> Details</h2>
+          <p id="det"> <%= connection.details %></p>
+      </div>
+
+    <% }else {%>
+             
+      <%}%>
+
+<%- include('../partials/footer.ejs')%>

@@ -1,0 +1,114 @@
+<%- include('../partials/header.ejs')%>
+
+<!--
+<table>
+
+      <tbody>
+        <th>Crypto Conventions</th>  
+        
+        <% if(connections.length){ %>
+          
+
+         <% connections.forEach(c =>{ %>
+          <% if(c.topic === 'Crypto Conventions'){ %>
+            
+            <tr>
+              <td><a href="/connections/<%=c.id%>" id="cLink"><%= c.name %></a> </td>
+              
+            </tr>
+          <%}%>
+
+
+
+
+         <% });
+
+        }else {%>
+          
+        <%}%>
+         
+    
+    </tbody>
+</table>
+
+<table>
+
+        <tbody>
+           
+          <th>Crypto Givebacks/ Community Service</th>  
+
+
+          <% if(connections.length){ %>
+          
+
+            <% connections.forEach(c =>{ %>
+              <% if(c.topic === 'Crypto Givebacks/ Community Service'){ %>
+               <tr>
+                 <td><a href="/connections/<%=c.id%>" id="cLink"><%= c.name %></a> </td>
+                 
+               </tr>
+               <%}%>
+
+            <% });
+   
+           }else {%>
+             
+           <%}%>
+     
+      </tbody>
+</table> -->
+
+<img alt="" id="connectImg" src="/images/planner.png">
+
+<% if(connections.length){ %>
+          
+  <% var topic = null; %>
+  <% connections.forEach(c =>{ %>
+
+   
+   <% if(c.topic != topic){ %>
+     
+       <%  topic = c.topic; %>
+
+       <table>
+
+        <tbody>
+           
+          <th><%=c.topic%></th>  
+
+
+         
+          
+
+            <% connections.forEach(c =>{ %>
+              <% if(c.topic === topic){ %>
+               <tr>
+                 <td><a href="/connections/<%=c.id%>" id="cLink"><%= c.name %></a> </td>
+                 
+               </tr>
+               <%}%>
+
+            <% }); %>
+   
+           
+     
+      </tbody>
+</table>
+     
+
+
+
+   <%}%>
+
+
+
+   
+  <% });
+
+ }else {%>
+   
+ <%}%>
+
+
+
+<%- include('../partials/footer.ejs')%>

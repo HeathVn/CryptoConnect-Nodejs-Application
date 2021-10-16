@@ -1,0 +1,30 @@
+<%- include('../partials/header.ejs')%>
+
+      <div id="form-container">
+
+        <form method="POST" action="/connections/<%=connection.id%>?_method=PUT">
+
+            <label>Topic: </label><input type="text" name="topic" value = "<%= connection.topic%>" placeholder="Topic">
+            <br>
+            <label>Title: </label><input type="text" name="name" value = "<%= connection.name%>" placeholder="Title">
+            <br>
+            <label>Host: </label><input type="text" name="hostName" value = "<%= connection.hostName%>" placeholder="Host">
+            <br>
+            <label>Details: </label><textarea name="details" placeholder="Description"><%= connection.details%></textarea >
+            <br>
+           <!-- <label>Where: </label><input type="text" placeholder="Location">
+            <br>-->
+            <label>When: </label><input name="date" value = "<%= connection.date%>" type="date">
+            <br>
+            <label> Start: </label><input name="startTime" value = "<%= connection.startTime%>" type="time" id="start-time">
+            <br>
+            <label>End: </label><input type="time" name="endTime" value = "<%= connection.endTime%>" id="end-time">
+            <br>
+            <label>Image URL: </label><input type="text" name="image" value = "<%= connection.image%>" placeholder="Image URL">
+            <br>
+            <!--<label id="c-c"> </label>--><button id="edit-connection">Submit</button>
+
+        </form>
+      </div>
+
+<%- include('../partials/footer.ejs')%>
