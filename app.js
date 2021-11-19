@@ -19,8 +19,12 @@ const app = express();
 
 
 //configure application
-let port = 3000;
-let host = 'localhost';
+//let port = 3000;
+//let host = 'localhost';
+
+const host = '0.0.0.0';
+const port = process.env.PORT || 3000;
+
 app.set('view engine', 'ejs');
 
 
