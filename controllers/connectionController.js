@@ -1,8 +1,14 @@
 const model = require('../models/connection');
 
-exports.index = (req,res)=>{
-   let connections = model.find();
-   res.render('./connections/connections', {connections});
+exports.index = (req,res, next)=>{
+   model.find()
+   .then(connections=>{
+     
+    console.log(connections);
+    return res.render('./connections/connections', {connections})
+   })
+   .catch(err=>next(err));
+   
  };
  
 
@@ -12,12 +18,22 @@ exports.index = (req,res)=>{
  
 
 
- exports.create = (req,res)=>{
+ exports.create = (req,res,next)=>{
     
-    console.log(req.body);
-    let connection = req.body;
-    model.save(connection);
-    res.redirect('/connections');
+    
+    let connection = new model(req.body);
+    connection.save()
+    .then((connection)=>{
+      console.log(connection);
+      res.redirect('/connections');
+    })
+    .catch(err=>{
+      if(err.name === 'ValidationError'){
+         err.status = 400;
+     }
+     next(err);
+    });
+    
   }; 
   
 
@@ -27,17 +43,30 @@ exports.index = (req,res)=>{
  exports.show = (req,res, next)=>{
 
      let id = req.params.id;
-     let connection = model.findById(id);
 
-     if(connection){
-        res.render('./connections/connection', {connection});
-     }else{
-        let err = new Error('Cannot find a story with id ' + id);
-        err.status = 404;
-        next(err);
-     }
-     
-     res.status(404).send('Cannot find story with id ' + id);
+
+
+     //an objectId is a 24-bit Hex string
+    if(!id.match(/^[0-9a-fA-F]{24}$/)){
+      let err = new Error('Invalid story id');
+      err.status =400;
+      return next(err);
+    }
+
+   model.findById(id)
+   .then(connection=>{
+       if(connection) {
+       res.render('./connections/connection', {connection});
+   } else {
+       let err = new Error('Cannot find a story with id ' + id);
+       err.status = 404;
+       next(err);
+   }
+   })
+   .catch(err=>next(err));
+
+
+    
   };
  
  
@@ -46,15 +75,27 @@ exports.index = (req,res)=>{
      
 
      let id = req.params.id;
-     let connection = model.findById(id);
+   
 
-     if(connection){
-      res.render('./connections/edit', {connection});
-   } else{
-      let err = new Error('Cannot find a story with id ' + id);
-        err.status = 404;
-        next(err);
+
+   //an objectId is a 24-bit Hex string
+    if(!id.match(/^[0-9a-fA-F]{24}$/)){
+      let err = new Error('Invalid story id');
+      err.status =400;
+      return next(err);
+    }
+
+   model.findById(id)
+   .then(connection=>{
+       if(connection) {
+       res.render('./connections/edit', {connection});
+   } else {
+       let err = new Error('Cannot find a story with id ' + id);
+       err.status = 404;
+       next(err);
    }
+   })
+   .catch(err=>next(err));
    
    
 
@@ -65,26 +106,55 @@ exports.index = (req,res)=>{
      
      let id = req.params.id;
      let connection = req.body;
-     
+   
 
-     if(model.updateById(id, connection)){
-        res.redirect('/connections/' + id);
-     }else{
-      let err = new Error('Cannot find a story with id ' + id);
-      err.status = 404;
+     if(!id.match(/^[0-9a-fA-F]{24}$/)){
+      let err = new Error('Invalid story id');
+      err.status =400;
+      return next(err);
+    }
+
+    model.findByIdAndUpdate(id,connection,{useFindAndModify: false, runValidators:true})
+    .then(connection=>{
+        if(connection){
+          res.redirect('/connections/'+id);
+        }else{
+          let err = new Error('Cannot find a connection with id ' + id);
+          err.status = 404;
+          next(err);
+        }
+    })
+    .catch(err=>{
+        
+      if(err.name === 'ValidationError'){
+          err.status = 400;
+          
+      }
       next(err);
-     }
+      });
   };
  
  
  exports.delete = (req,res, next)=>{
      let id = req.params.id;
-     if(model.deleteById(id)){
-        res.redirect('/connections');
-     }else{
-      let err = new Error('Cannot find a story with id ' + id);
-      err.status = 404;
-      next(err);
-     }
+
+
+     if(!id.match(/^[0-9a-fA-F]{24}$/)){
+      let err = new Error('Invalid story id');
+      err.status =400;
+      return next(err);
+    }
+
+    model.findByIdAndDelete(id,{useFindAndModify: false})
+    .then(connection=>{
+        if(connection){
+            res.redirect('/connections');
+        }else{
+            let err = new Error('Cannot find a connection with id ' + id);
+            err.status = 404;
+            return next(err);
+        }
+    })
+    .catch(err=>next(err))
   };  
  

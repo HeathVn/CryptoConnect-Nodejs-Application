@@ -4,23 +4,23 @@
 
         <form method="POST" action="/connections/<%=connection.id%>?_method=PUT">
 
-            <label>Topic: </label><input type="text" name="topic" value = "<%= connection.topic%>" placeholder="Topic">
+            <label>Topic: </label><input type="text" name="topic" value = "<%= connection.topic%>" placeholder="Topic" required>
             <br>
-            <label>Title: </label><input type="text" name="name" value = "<%= connection.name%>" placeholder="Title">
+            <label>Title: </label><input type="text" name="name" value = "<%= connection.name%>" placeholder="Title" required>
             <br>
-            <label>Host: </label><input type="text" name="hostName" value = "<%= connection.hostName%>" placeholder="Host">
+            <label>Host: </label><input type="text" name="hostName" value = "<%= connection.hostName%>" placeholder="Host" required>
             <br>
-            <label>Details: </label><textarea name="details" placeholder="Description"><%= connection.details%></textarea >
+            <label>Details: </label><textarea name="details" placeholder="Description"><%= connection.details%></textarea required>
             <br>
            <!-- <label>Where: </label><input type="text" placeholder="Location">
             <br>-->
-            <label>When: </label><input name="date" value = "<%= connection.date%>" type="date">
+            <label>When: </label><input name="date" value = "<%= connection.date%>" type="date" required>
             <br>
-            <label> Start: </label><input name="startTime" value = "<%= connection.startTime%>" type="time" id="start-time">
+            <label> Start: </label><input name="startTime" value = "<%= connection.startTime%>" type="time" id="start-time" required>
             <br>
-            <label>End: </label><input type="time" name="endTime" value = "<%= connection.endTime%>" id="end-time">
+            <label>End: </label><input type="time" name="endTime" value = "<%= connection.endTime%>" id="end-time" required>
             <br>
-            <label>Image URL: </label><input type="text" name="image" value = "<%= connection.image%>" placeholder="Image URL">
+            <label>Image URL: </label><input type="text" name="image" value = "<%= connection.image%>" placeholder="Image URL" required>
             <br>
             <!--<label id="c-c"> </label>--><button id="edit-connection">Submit</button>
 
