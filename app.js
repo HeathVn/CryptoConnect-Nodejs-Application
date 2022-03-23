@@ -30,7 +30,7 @@ app.set('view engine', 'ejs');
 
 
 //connect to database
-mongoose.connect('mongodb://localhost:27017/connect?directConnection=true',
+mongoose.connect('mongodb://127.0.0.1:27017/connect',
                 {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
 .then(()=>{
     //start the server
