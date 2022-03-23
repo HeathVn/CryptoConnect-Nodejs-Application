@@ -10,6 +10,7 @@ const flash = require('connect-flash');
 const connectionRoutes = require('./routes/connectionRoutes');
 const mainRoutes = require('./routes/mainRoutes');
 const userRoutes = require('./routes/userRoutes');
+const rsvpRoutes = require('./routes/rsvpRoutes');
 
 
 
@@ -29,7 +30,7 @@ app.set('view engine', 'ejs');
 
 
 //connect to database
-mongoose.connect('mongodb://127.0.0.1:27017/connect',
+mongoose.connect('mongodb://localhost:27017/connect',
                 {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
 .then(()=>{
     //start the server
@@ -64,16 +65,12 @@ app.use(flash());
 
 app.use((req, res, next)=>{
     console.log(req.session);
+    res.locals.user = req.session.user||null;
+    res.locals.name = req.session.name||"user";
     res.locals.successMessages = req.flash('success');
     res.locals.errorMessages = req.flash('error');
     next();
 });
-
-//set up routes
-app.get('/',(req,res)=>{ 
-    res.render('index');
-});
-
 
 
 
@@ -82,9 +79,11 @@ app.use(express.static(__dirname+'/public'));
 
 
 
-app.use('/main', mainRoutes);
+app.use('', mainRoutes);
 app.use('/connections', connectionRoutes);
 app.use('/users', userRoutes);
+app.use('/rsvps', rsvpRoutes);
+
 
 
 
@@ -93,6 +92,7 @@ app.use((req, res, next)=>{
    err.status = 404;
    next(err);
 });
+
 
 app.use((err, req, res, next)=>{
    if(!err.status){
