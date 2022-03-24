@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
+const cors = require('cors');
 
 const connectionRoutes = require('./routes/connectionRoutes');
 const mainRoutes = require('./routes/mainRoutes');
@@ -27,6 +28,23 @@ const host = '0.0.0.0';
 const port = process.env.PORT || 3000;
 
 app.set('view engine', 'ejs');
+
+const whitelist = ['http://localhost:3000','http://localhost:27017','https://cryptoconnect-nodejs-app.herokuapp.com']
+
+const corsOptions = {
+  origin: function (origin, callback) {
+   
+   
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      console.log("Origin acceptable")
+      callback(null, true)
+    } else {
+      console.log("Origin rejected")
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+app.use(cors(corsOptions))
 
 
 //connect to database
