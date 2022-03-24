@@ -64,12 +64,21 @@ app.use(session({
 app.use(flash());
 
 app.use((req, res, next)=>{
+  
+  let validIps = ['127.0.0.1']; // Put your IP whitelist in this array
+
+ 
     console.log(req.session);
     res.locals.user = req.session.user||null;
     res.locals.name = req.session.name||"user";
     res.locals.successMessages = req.flash('success');
     res.locals.errorMessages = req.flash('error');
-    next();
+  
+   if(validIps.includes(req.connection.remoteAddress)){
+      // IP is ok, so go on
+     
+      next();
+   }
 });
 
 
