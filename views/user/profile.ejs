@@ -1,6 +1,64 @@
 <%- include('../partials/header.ejs')%>
-<h2>Welcome, <%= user.firstName + " " + user.lastName %></h2>
+<!-- <h2>Welcome, <%= user.firstName + " " + user.lastName %></h2> -->
+<p> <%=name%>'s Connections:</p>
 
-</body>
 
-</html>
+<% if(connections.length) {%>
+    
+    <%connections.forEach(connect =>{%>
+   <table id="myConnects">
+
+        <tr>
+           <th>Connection</th>
+           <th>Category</th>
+           <th>Action</th>
+        </tr>
+        <tr>
+          <td><a href = '/connections/<%=connect.id%>'><p class="con"><%=connect.name%></p></a></td>
+          <td><p class="con"><%=connect.topic%></p></td>
+          <td> <form id="delUpd">
+            <button id="update" type="submit" formmethod = "GET" formaction = "/connections/<%=connect.id%>/edit">Update</button>
+            <button id="delete" type="submit" formmethod = "POST" formaction = "/connections/<%=connect.id%>?_method=DELETE">Delete</button>
+            </form> </td>
+        </tr>
+   </table>     
+    <%});
+} else {%>
+    <p>You have not created any connections</p>
+<%}%>
+
+<p> <%=name%>'s RSVPs:</p>
+
+
+    <% if(rsvps.length ) {%>
+       
+        <%rsvps.forEach(r =>{%>
+           <% console.log(r) %>
+           <% if(r.connectionName !=null){%>
+        <table id="myRSVPs">
+ 
+            <tr>
+               <th>Connection</th>
+               <th>Category</th>
+               <th>Going?</th>
+               <th>Action</th>
+            </tr>
+            <tr>
+              <td><p class="con"><%=r.connectionName.name%></p></td>
+              <td><p class="con"><%=r.connectionName.topic%></p></td>
+              <td><p class="con"><%=r.status%></p></td>
+              <td> <form id="delUpd">
+                <button id="update" type="submit" formmethod = "GET" formaction = "/connections/<%=r.connectionName._id%>">Update</button>
+                <button id="delete" type="submit" formmethod = "POST" formaction = "/rsvps/<%=r._id%>?_method=DELETE">Delete</button>
+                </form> </td>
+            </tr>
+        </table>    
+            <%}%>
+        
+        <%});
+    } else {%>
+        <p>You have not made any RSVPs</p>
+    <%}%>
+    
+
+<%- include('../partials/footer.ejs')%>

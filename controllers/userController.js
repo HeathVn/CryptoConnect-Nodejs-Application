@@ -1,4 +1,6 @@
 const User = require('../models/user');
+const Connection =  require('../models/connection')
+const RSVP= require('../models/rsvp');
 
 //get the sign up form
 exports.new = (req, res)=>{
@@ -9,7 +11,10 @@ exports.createUser = (req,res, next)=>{
 
     let user = new User(req.body);
     user.save()
-    .then(()=> res.redirect('/users/login'))
+    .then(success=>{
+        req.flash('success', 'Account successfully created')
+        res.redirect('/users/login')
+    } )
     .catch(err=>{
         if(err.name === 'ValidationError'){
             req.flash('error', err.message);
@@ -55,6 +60,7 @@ exports.processLogin = (req, res)=>{
             .then(result => {
                 if(result){
                     req.session.user = user._id; // store user in session
+                    req.session.name = user.firstName;
                     req.flash('success', 'You have successfully logged in')
                     res.redirect('/users/profile');
                 }else{
@@ -76,14 +82,18 @@ exports.processLogin = (req, res)=>{
 
 };
 
-exports.profile = (req,res)=>{
+exports.profile = (req,res, next)=>{
 
     let id = req.session.user;
 
     console.log(req.flash())
-    User.findById(id)
-    .then(user => res.render('./user/profile', {user}))
-    .catch(err=>next(err));
+    
+    Promise.all([User.findById(id), Connection.find({hostName: id}), RSVP.find({user: id}).populate('connectionName')])
+    .then(results=>{
+    const [user, connections, rsvps] =  results;
+     console.log(rsvps);
+      res.render('./user/profile', {user, connections,rsvps});
+    }).catch(err=>next(err));
 
    
 };
@@ -95,7 +105,7 @@ exports.logout = (req,res,next)=>{
           return next(err);
       }
       else{
-          res.redirect('/');
+          res.redirect('');
       }
     });
   };

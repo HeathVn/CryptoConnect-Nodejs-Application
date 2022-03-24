@@ -1,5 +1,7 @@
 const express = require('express');
 const controller = require('../controllers/connectionController');
+const {isLoggedIn, isAuthor} = require('../middlewares/auth');
+const {validateId, validateConnectionCreation, validateConnectionUpdate, validateResult, validateTime} = require('../middlewares/validator');
 
 const router = express.Router();
 
@@ -9,25 +11,25 @@ router.get('/', controller.index);
 
 
 //GET /connections/newController: send html form for creating a new story
-router.get('/newConnection', controller.new);
+router.get('/new', isLoggedIn ,controller.new);
 
-//POST /stories: create a new story
-router.post('/', controller.create);
+//POST /connections: create a new story
+router.post('/', isLoggedIn, validateConnectionCreation,validateTime, validateResult ,controller.create);
 
 //GET /connections/:id send details of story identified by id
 
-router.get('/:id', controller.show);
+router.get('/:id', validateId ,controller.show);
 
-//GET /stories/:id/edit: send html form for editing an existing story
+//GET /connections/:id/edit: send html form for editing an existing story
 
-router.get('/:id/edit', controller.edit);
+router.get('/:id/edit', isLoggedIn, isAuthor,validateId ,controller.edit);
 
-//PUT /stories/:id: update the story identified by id
-router.put('/:id', controller.update);
+//PUT /connections/:id: update the story identified by id
+router.put('/:id', isLoggedIn, isAuthor,validateId,validateConnectionUpdate,validateTime, validateResult ,controller.update);
 
-//DELETE /stories/:id, delete the story identified by id
+//DELETE /connections/:id, delete the story identified by id
 
-router.delete('/:id', controller.delete);
+router.delete('/:id',isLoggedIn, isAuthor,validateId , controller.delete);
 
 
 

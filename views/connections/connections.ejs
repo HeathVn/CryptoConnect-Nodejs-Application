@@ -60,6 +60,8 @@
 
 <img alt="" id="connectImg" src="/images/planner.png">
 
+
+
 <% if(connections.length){ %>
           
   <% var topic = null; %>
@@ -70,12 +72,12 @@
      
        <%  topic = c.topic; %>
 
-       <table>
-
+       
+     <table>
         <tbody>
-           
-          <th><%=c.topic%></th>  
-
+          <tr>
+           <th><%=c.topic%></th>  
+          </tr> 
 
          
           
@@ -83,7 +85,7 @@
             <% connections.forEach(c =>{ %>
               <% if(c.topic === topic){ %>
                <tr>
-                 <td><a href="/connections/<%=c.id%>" id="cLink"><%= c.name %></a> </td>
+                 <td><a href="/connections/<%=c.id%>" class="cLink"><%= c.name %></a> </td>
                  
                </tr>
                <%}%>

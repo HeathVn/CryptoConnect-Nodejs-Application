@@ -1,4 +1,8 @@
 const model = require('../models/connection');
+const User = require('../models/user');
+const RSVP= require('../models/rsvp');
+
+
 
 exports.index = (req,res, next)=>{
    model.find()
@@ -13,7 +17,20 @@ exports.index = (req,res, next)=>{
  
 
  exports.new = (req,res)=>{
-     res.render('./connections/newConnection');
+
+    let id = req.session.user;
+    let user = User.findById(id);
+
+    console.log(id);
+
+    Promise.all([User.findById(id)])
+    .then(results=>{
+    const [user] =  results;
+
+    res.render('./connections/newConnection', {user});
+    }).catch(err=>next(err));
+       
+     
   };
  
 
@@ -22,9 +39,13 @@ exports.index = (req,res, next)=>{
     
     
     let connection = new model(req.body);
+
+    connection.hostName = req.session.user;
+
     connection.save()
     .then((connection)=>{
       console.log(connection);
+      req.flash('success', 'Your connection was created successfully');
       res.redirect('/connections');
     })
     .catch(err=>{
@@ -44,21 +65,20 @@ exports.index = (req,res, next)=>{
 
      let id = req.params.id;
 
+   
 
+   Promise.all([model.findById(id).populate('hostName'), RSVP.find({connectionName: id}).populate('user')])
+   .then(results=>{
+       if(results) {
 
-     //an objectId is a 24-bit Hex string
-    if(!id.match(/^[0-9a-fA-F]{24}$/)){
-      let err = new Error('Invalid story id');
-      err.status =400;
-      return next(err);
-    }
-
-   model.findById(id)
-   .then(connection=>{
-       if(connection) {
-       res.render('./connections/connection', {connection});
+       const [connection, rsvps] =  results;
+       console.log(rsvps);
+      
+       req.session.connection = connection._id;
+      
+       res.render('./connections/connection', {connection, rsvps});
    } else {
-       let err = new Error('Cannot find a story with id ' + id);
+       let err = new Error('Cannot find a connection with id ' + id);
        err.status = 404;
        next(err);
    }
@@ -74,23 +94,15 @@ exports.index = (req,res, next)=>{
  exports.edit = (req,res, next)=>{
      
 
-     let id = req.params.id;
+   let id = req.params.id;
    
-
-
-   //an objectId is a 24-bit Hex string
-    if(!id.match(/^[0-9a-fA-F]{24}$/)){
-      let err = new Error('Invalid story id');
-      err.status =400;
-      return next(err);
-    }
 
    model.findById(id)
    .then(connection=>{
        if(connection) {
        res.render('./connections/edit', {connection});
    } else {
-       let err = new Error('Cannot find a story with id ' + id);
+       let err = new Error('Cannot find a connection with id ' + id);
        err.status = 404;
        next(err);
    }
@@ -107,16 +119,12 @@ exports.index = (req,res, next)=>{
      let id = req.params.id;
      let connection = req.body;
    
-
-     if(!id.match(/^[0-9a-fA-F]{24}$/)){
-      let err = new Error('Invalid story id');
-      err.status =400;
-      return next(err);
-    }
+    
 
     model.findByIdAndUpdate(id,connection,{useFindAndModify: false, runValidators:true})
     .then(connection=>{
         if(connection){
+          req.flash('success', 'Your connection updated successfully');
           res.redirect('/connections/'+id);
         }else{
           let err = new Error('Cannot find a connection with id ' + id);
@@ -138,16 +146,18 @@ exports.index = (req,res, next)=>{
  exports.delete = (req,res, next)=>{
      let id = req.params.id;
 
-
-     if(!id.match(/^[0-9a-fA-F]{24}$/)){
-      let err = new Error('Invalid story id');
-      err.status =400;
-      return next(err);
-    }
+    RSVP.deleteMany({connectionName: id})
+    
 
     model.findByIdAndDelete(id,{useFindAndModify: false})
     .then(connection=>{
         if(connection){
+
+         
+
+            
+    
+             req.flash('success', 'Your connection was deleted successfully');
             res.redirect('/connections');
         }else{
             let err = new Error('Cannot find a connection with id ' + id);
@@ -156,5 +166,8 @@ exports.index = (req,res, next)=>{
         }
     })
     .catch(err=>next(err))
+
+
+    
   };  
  

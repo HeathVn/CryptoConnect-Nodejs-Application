@@ -5,17 +5,97 @@
         <% if(connection !== null){ %>
 
         <h2 id="topic"> <%=connection.name%> </h2>
+
+         <% var count = 0; %>
+          
+          
+
+        <%if(user == connection.hostName._id){%>
         <form id="delUpd">
-        <button id="update" formmethod = "GET" formaction = "/connections/<%=connection.id%>/edit">Update</button>
+
+         <% if(count == 1){ %>
+            <p> <%=count%> person are going</p>
+         <% }else{ %>
+            <p> <%=count%> people are going</p>
+         <% }%>
+        
+        <button id="update" type="submit" formmethod = "GET" formaction = "/connections/<%=connection.id%>/edit">Update</button>
         <button id="delete" type="submit" formmethod = "POST" formaction = "/connections/<%=connection.id%>?_method=DELETE">Delete</button>
         </form>
+        <%} else if(user != connection.hostName._id){%>
+        
+         <% if(rsvps != null){ %>
+            
+            <%rsvps.forEach(r =>{ %>
+
+             <% if(r.status == 'YES'){ %>
+                <%  count++; %>
+             <%}%>
+            
+            <%})%>
+          <%}%>
+
+
+           <% var exists = false; %>
+           <% var id = null; %>
+           <% rsvps.forEach(r =>{ %>
+             
+            <% if(r.user._id == user){%>
+              <%    exists = true; %>
+              <%    id = r._id; %>
+              <% }%>
+              <% })%>
+
+            
+            <%if(exists == true){%>
+         
+            <form id="rsvpOpt" method="POST" action ="/rsvps/<%=id%>?_method=PUT">
+
+              <% if(count == 1){ %>
+                <p> <%=count%> person is going</p>
+             <% }else{ %>
+                <p> <%=count%> people are going</p>
+             <% }%>
+
+              <p>RSVP to attend:</p>
+
+          
+              <button id="yes" name="status" value="Yes" >Yes</button>
+              <button id="no" name="status" value="No" >No</button>
+              <button id="maybe" name="status" value="Maybe">Maybe</button>
+           
+            
+            </form>
+           <%}else{%>
+            <form id="rsvpOpt" method = "POST" action = "/rsvps">
+
+               <% if(count == 1){ %>
+                <p> <%=count%> person is going</p>
+             <% }else{ %>
+                <p> <%=count%> people are going</p>
+             <% }%>
+              <p>RSVP to attend:</p>
+
+          
+              <button id="yes" name="status" value="Yes" >Yes</button>
+              <button id="no" name="status" value="No" >No</button>
+              <button id="maybe" name="status" value="Maybe">Maybe</button>
+           
+            
+            </form>
+           <%}%>
+
+            
+    
+          <%}%>
+
         <img alt="" id ="eth" src="<%= connection.image %>" />
         
           <div id="info-inner">
-            <h3 id="connectHost"> Hosted by <%=connection.hostName%></h3>
+            <h3 id="connectHost"> Hosted by <%=connection.hostName.firstName + ' ' + connection.hostName.lastName%></h3>
             <p> <%= connection.date %></p>
             <p> <%= connection.startTime %> -  <%= connection.endTime %></p>
-            <p> Prudential Tower, Boston,MA</p>
+            <p> <%= connection.location %> </p>
 
           </div>
       </div>
@@ -23,9 +103,11 @@
           <h2> Details</h2>
           <p id="det"> <%= connection.details %></p>
       </div>
-
+ 
+      <p id="createdBy"> Created by: <%= connection.hostName.firstName + ' ' + connection.hostName.lastName %></p>
     <% }else {%>
              
+     
       <%}%>
 
 <%- include('../partials/footer.ejs')%>

@@ -10,22 +10,51 @@
 <body>
     <nav>
         <!--< a href=""><img src=""/> </> -->
-        <a href="/" id="cLink"><img id="logo" alt="" src="https://img.icons8.com/external-itim2101-lineal-color-itim2101/100/000000/external-laptop-business-strategy-itim2101-lineal-color-itim2101.png"/>
+        <a href=" " id="cLink"><img id="logo" alt="" src="https://img.icons8.com/external-itim2101-lineal-color-itim2101/100/000000/external-laptop-business-strategy-itim2101-lineal-color-itim2101.png"/>
         </a><h2> CryptoConnect </h2>
        
         <ul class="navList">
-         <li class="navListItem"><a href="/connections/newConnection">Start a new connection</a></li>
+        
+         
+         
+         <%if(!user){%>
          <li class="navListItem"><a href="/users/login">Login</a></li>
          <li class="navListItem"><a href="/users/new">Signup</li><a></li>
+         <%}else{%>
+         <li class="navListItem"><a href="/connections/new">Start a new connection</a></li>
          <li class="navListItem"><a href='/users/profile'>Profile</a></li> 
          <li class="navListItem"><a href='/users/logout'>Logout</a></li>
         </ul>
-  
+      <%}%>
         <hr/>
   
         <ul class="navList2">
           <li class="navListItem2"><a href="/connections/">Connections</a></li>
-          <li class="navListItem2"><a href="/main/about">About</a></li>
-          <li class="navListItem2"><a href="/main/contact">Contacts</a></li>
+          <li class="navListItem2"><a href="/about">About</a></li>
+          <li class="navListItem2"><a href="/contact">Contacts</a></li>
         </ul>
+
+        <%if(user){%>
+          
+                <p id="welcome">Welcome, <%= name %> </p>
+
+        
+        <%}%>
       </nav>
+
+      <% if(errorMessages.length > 0) {%>
+        <% errorMessages.forEach(message=>{%>
+            <div class='error'>
+                <%=message%>
+            </div>
+            <%});%>
+                <%}%>
+    
+                    <% if(successMessages.length > 0) {%>
+    
+                        <% successMessages.forEach(message=>{%>
+                            <div class='success'>
+                                <%=message%>
+                            </div>
+                            <%});%>
+                                <%}%>

@@ -7,14 +7,30 @@
             <label>Topic: </label><input type="text" name ="topic" placeholder="Topic" required>
             <br>
             <label>Title: </label><input type="text" name="name" placeholder="Title" required>
-            <br>
-            <label>Host: </label><input type="text" name="hostName" placeholder="Host" required>
+            <!-- <br>
+            <label>Host: </label><input type="text" name="hostName" placeholder="Host" required> -->
             <br>
             <label>Details: </label><textarea name="details" placeholder="Description" required></textarea >
             <br>
-            <label>Where: </label><input name="where" type="text" placeholder="Location" required>
+            <label>Where: </label><input name="location" type="text" placeholder="Location" required>
             <br>
-            <label>When: </label><input name="date" type="date" required>
+
+            <% var today = new Date(); %>
+            <% var dd = today.getDate(); %>
+            <% var mm = today.getMonth() + 1; %>
+            <% var yyyy = today.getFullYear(); %>
+
+            <% if (dd < 10) { %>
+              <%  dd = '0' + dd; %>
+              <% }%>
+
+            <% if (mm < 10) { %>
+              <%   mm = '0' + mm; %>
+            <% } %>
+    
+            <% today = yyyy + '-' + mm + '-' + dd; %> 
+
+            <label>When: </label><input name="date" type="date" min="<%=today%>" required>
             <br>
             <label> Start: </label><input name="startTime" type="time" id="start-time" required>
             <br>

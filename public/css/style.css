@@ -125,11 +125,33 @@ p{
 
 #delUpd{
     display: inline;
+    float:right;
+}
+
+#rsvpOpt{
+    display: inline;
+    float:right;
+    margin-bottom:10px;
+}
+
+#yes{
+    background-color: green;
+    color: white;
+}
+
+#no{
+    background-color: red;
+    color: white;
+}
+
+#maybe{
+    background-color: blue;
+    color: white;
+    float:right;
 }
 
 button{
     display: inline;
-    float:right;
     background-image: linear-gradient(#f9f295,#E0AA3E,#E0AA3E,#B88A44);
     color: white;
     border-radius: 15px;
@@ -143,7 +165,7 @@ button{
     margin-top: 40px;
     margin-left:28%;
     margin-right: auto;
-    width: 800px;
+    width: 850px;
 }
 #info2{
     margin-top: 60px;
@@ -200,10 +222,10 @@ table{
 
 td{
     border: 1px solid black;
-    background-color: white;
+    background-color: #B88A44;
 }
 
-#cLink{
+.cLink{
     text-decoration: none;
     color:black;
 }
@@ -329,3 +351,79 @@ textarea{
     padding-left: 20px;
     padding-top: 20px;
   }
+
+/* Sign up */
+
+#signup{
+    margin-left: 650px;
+    
+}
+
+#signup input{
+    width: 400px;
+    
+}
+
+#signup button{
+    margin-right: 730px;
+    
+}
+
+/* Login page*/
+
+#login{
+    margin-left: 650px;
+    
+}
+
+#login input{
+    width: 400px;
+    
+}
+
+#login button{
+    margin-right: 730px;
+    
+}
+
+/* Style flash messages */
+
+.success{
+
+    background-color: rgba(108, 192, 112, 0.7);
+    color: white;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.error {
+
+    background-color: rgba(255, 102, 51, 0.7);
+    color: white;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#welcome{
+    display: inline;
+    margin-left: 1000px;
+    color:white;
+}
+
+#myConnects{
+
+    width: 1000px;
+    background-color: black;
+}
+
+#myRSVPs{
+    width: 1000px;
+    height:fit-content;
+    background-color: black;
+}
+
+.con{
+    color:black;
+}

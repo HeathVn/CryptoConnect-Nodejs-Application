@@ -1,6 +1,10 @@
+const express = require('express');
+
+const main = express();
+
 exports.index = (req,res)=>{
     
-    res.render('./views/index');
+    res.render('index');
 };
 
 exports.about = (req,res)=>{
