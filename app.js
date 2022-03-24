@@ -29,26 +29,11 @@ const port = process.env.PORT || 3000;
 
 app.set('view engine', 'ejs');
 
-const whitelist = ['http://localhost:3000','http://localhost:27017','https://cryptoconnect-nodejs-app.herokuapp.com']
 
-const corsOptions = {
-  origin: function (origin, callback) {
-   
-   
-    if (whitelist.indexOf(origin) !== -1 || !origin) {
-      console.log("Origin acceptable")
-      callback(null, true)
-    } else {
-      console.log("Origin rejected")
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-}
-app.use(cors(corsOptions))
 
 
 //connect to database
-mongoose.connect('mongodb://localhost:27017/connect',
+mongoose.connect('mongodb://0.0.0.0:27017/connect',
                 {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
 .then(()=>{
     //start the server
