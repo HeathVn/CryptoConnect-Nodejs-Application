@@ -74,11 +74,8 @@ app.use((req, res, next)=>{
     res.locals.successMessages = req.flash('success');
     res.locals.errorMessages = req.flash('error');
   
-   if(validIps.includes(req.connection.remoteAddress)){
-      // IP is ok, so go on
-     
-      next();
-   }
+    next();
+  
 });
 
 
