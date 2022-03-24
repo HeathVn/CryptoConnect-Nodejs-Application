@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
+const cors = require('cors');
 
 const connectionRoutes = require('./routes/connectionRoutes');
 const mainRoutes = require('./routes/mainRoutes');
@@ -29,8 +30,10 @@ const port = process.env.PORT || 3000;
 app.set('view engine', 'ejs');
 
 
+
+
 //connect to database
-mongoose.connect('mongodb://localhost:27017/connect',
+mongoose.connect('mongodb://0.0.0.0:27017/connect',
                 {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
 .then(()=>{
     //start the server
@@ -64,12 +67,17 @@ app.use(session({
 app.use(flash());
 
 app.use((req, res, next)=>{
+  
+
+ 
     console.log(req.session);
     res.locals.user = req.session.user||null;
     res.locals.name = req.session.name||"user";
     res.locals.successMessages = req.flash('success');
     res.locals.errorMessages = req.flash('error');
+  
     next();
+  
 });
 
 
