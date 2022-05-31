@@ -33,7 +33,7 @@ app.set('view engine', 'ejs');
 
 
 //connect to database
-mongoose.connect('mongodb://0.0.0.0:27017/connect?authSource=admin',
+mongoose.connect('mongodb://127.0.0.1:27017/connect',
                 {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
 .then(()=>{
     //start the server
@@ -61,7 +61,7 @@ app.use(session({
     resave:false,
     saveUninitialized: true,
     cookie:{maxAge: 60*60*1000},
-    store: new MongoStore({mongoUrl: 'mongodb://0.0.0.0:27017/connect'})
+    store: new MongoStore({mongoUrl: 'mongodb://127.0.0.1:27017/connect'})
 }));
 
 app.use(flash());
