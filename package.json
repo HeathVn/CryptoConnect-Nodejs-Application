@@ -1,7 +1,7 @@
 {
   "name": "website-prototyping",
   "version": "1.0.0",
-  "description": "",
+  "description": "Application can be viewed at: https://cryptoconnect-nodejs-app.herokuapp.com/",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,25 +10,45 @@
   "author": "Heathvonn Styles",
   "license": "ISC",
   "dependencies": {
+    "abbrev": "^1.1.1",
     "bcrypt": "^5.0.1",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^4.6.0",
-<<<<<<< HEAD
-=======
+    "cookie-signature": "^1.2.0",
     "cors": "^2.8.5",
->>>>>>> 963acd6a2e5fb4df39629dca369d3f355de50ae0
     "date-and-time": "^2.0.1",
     "dateformat": "^5.0.2",
+    "debug": "^4.3.4",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "express-rate-limit": "^5.5.1",
-    "express-session": "^1.17.2",
+    "express-session": "^1.17.3",
     "express-validator": "^6.13.0",
     "font-awesome": "^4.7.0",
     "init": "^0.1.2",
+    "lru-cache": "^7.10.1",
     "method-override": "^3.0.0",
-    "mongoose": "^5.13.13",
+    "mongoose": "^5.13.14",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.13"
-  }
+    "nodemon": "^2.0.16",
+    "npm-check": "^5.9.2",
+    "npm-install-all": "^1.1.21",
+    "npmlog": "^6.0.2",
+    "random-bytes": "^1.0.0",
+    "safe-buffer": "^5.2.1",
+    "safer-buffer": "^2.1.2",
+    "set-blocking": "^2.0.0",
+    "string-width": "^5.1.2",
+    "strip-ansi": "^7.0.1",
+    "uid-safe": "^2.1.5",
+    "util-deprecate": "^1.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HeathVn/https---github.com-HeathVn-CryptoConnect-NodeJs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HeathVn/https---github.com-HeathVn-CryptoConnect-NodeJs/issues"
+  },
+  "homepage": "https://github.com/HeathVn/https---github.com-HeathVn-CryptoConnect-NodeJs#readme"
 }
