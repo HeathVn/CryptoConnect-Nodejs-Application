@@ -61,7 +61,7 @@ app.use(session({
     resave:false,
     saveUninitialized: true,
     cookie:{maxAge: 60*60*1000},
-    store: new MongoStore({mongoUrl: 'mongodb://localhost:27017/connect'})
+    store: new MongoStore({mongoUrl: 'mongodb://0.0.0.0:27017/connect'})
 }));
 
 app.use(flash());
