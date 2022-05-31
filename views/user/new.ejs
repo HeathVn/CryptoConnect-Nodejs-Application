@@ -1,6 +1,8 @@
 <%- include('../partials/header.ejs')%>
-<br>
+
+<div id="login-form">
     <form id="signup" action="/users" method="POST">
+        <h2 class="login-title">Sign Up </h2>
         <label for="firstName">First Name</label><br>
         <input type="text" id="firstName" name="firstName" required><br><br>
         <label for="lastName">Last Name</label><br>
@@ -11,8 +13,7 @@
         <input type="password" id="password" name="password" required><br><br>
         <button>Sign Up</button><br>
     </form>
+</div>
 
-</body>
 
-
-</html>
+<%- include('../partials/footer.ejs')%>
