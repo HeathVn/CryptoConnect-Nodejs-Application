@@ -1,8 +1,37 @@
 
-body{
+.container{
+    position: relative;
+    
+}
+
+.banner{
+    
+   
+   
+}
+
+
+.info-home{
+    
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    
+    width:100%;
+    z-index: 4;
+}
+
+#bimg{
+    height:900px;
+    width:100%;
+    opacity: 0.4;
+    z-index:10;
+}
+
+html,body{
 
     width:100%;
-    height: 100%;
+    height: fit-content;
     
     margin: 0%;
     z-index: 20;
@@ -10,22 +39,27 @@ body{
     display: block;
     overflow-x: hidden;
     overflow-y: scroll;
-    background-color: #d2b48c;
-    scroll-behavior: smooth;
-    margin-bottom: 200px;
+    background-color: #A7C7E7; /*#d2b48c;*/
+    
+    
+   scroll-behavior: smooth;
+    
 }
 
 nav{
 width:100%;
-height: 20%;
+height: 5%;
 position:sticky;
-background: linear-gradient(#BA9368,#966919,#80471c,#7B3F00);
+background: #2E8BC0;/*linear-gradient(#BA9368,#966919,#80471c,#7B3F00);*/
 z-index: 5;
 color: white;
 padding: 20px;
 padding-bottom: 3px;
 overflow: hidden;
 top: 0;
+-webkit-box-shadow: 0 8px 6px -6px black;
+-moz-box-shadow: 0 8px 6px -6px black;
+box-shadow: 0 8px 6px -6px black;
 }
 
 
@@ -37,8 +71,8 @@ top: 0;
     display: inline;
     width:600px;
     float:right;
-    margin-right: 12%;
-    margin-top: 4%;
+    margin-right: 5%;
+    
 }
 
 .navList2{
@@ -71,17 +105,18 @@ top: 0;
 
 nav h2{
     padding-left: 10px;
-    padding-top: 32px;
+    
     margin-top: 0px;
     display: inline;
 }
 
 #logo{
-    padding-left: 10px;
-    padding-top: 5px;
+    padding-left: 0px;
+    padding-top: 0px;
     margin-top: 0px;
     display: inline;
-
+    height:50px;
+    width:50px;
 }
 
 a:link {
@@ -94,13 +129,23 @@ a:visited {
     color: white;
   }
 
+.cLink:link {
+    text-decoration: none;
+    color: black;
+}
+
+.cLink:visited {
+    text-decoration: none;
+    color: black;
+  }
+
 footer{
     position:fixed;
     bottom: 0px;
-    background: linear-gradient(#966919,#7B3F00);
+    background: #2E8BC0;/*linear-gradient(#966919,#7B3F00); */
     display: block;
     width:100%;
-    height: 10%;
+    height: 8%;
     color: white;
     
 }
@@ -111,8 +156,9 @@ hr{
 }
 
 #copyright{
-    margin-top: 45px;
+    margin-top: 26px;
     margin-left: 20px;
+    
 }
 
 p{
@@ -222,7 +268,9 @@ table{
 
 td{
     border: 1px solid black;
-    background-color: #B88A44;
+    background-color: white;
+    color: black;
+    height:20px;
 }
 
 .cLink{
@@ -255,10 +303,12 @@ label{
 input{
     width:300px;
     margin-bottom: 30px;
+    border-radius: 10px;
+    height:25px;
 }
 textarea{
     width:300px;
-    
+    border-radius: 15px;
 }
 
 #start-time{
@@ -354,9 +404,35 @@ textarea{
 
 /* Sign up */
 
-#signup{
-    margin-left: 650px;
+#signup-form{
     
+    border: white solid 2px;
+    border-radius: 15px;
+    z-index: 4;
+    margin-top: 70px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    
+    
+    background-color: #C1E1C1;
+
+   
+     box-shadow: 0 8px 10px 5px black;
+     margin-bottom: 40px;
+    
+
+}
+
+#signup{
+   /* margin-left: 650px;*/
+    
+    margin-left: auto;
+   margin-right: auto;
+   width: 50%;
+   height:50%;
+   margin-bottom: 20px;
+   z-index:3;
 }
 
 #signup input{
@@ -371,10 +447,40 @@ textarea{
 
 /* Login page*/
 
-#login{
-    margin-left: 650px;
+.login-title{
     
 }
+
+#login-form{
+    
+    border: white solid 2px;
+    border-radius: 15px;
+    z-index: 4;
+    margin-top: 70px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    
+    
+    background-color: #C1E1C1;
+
+   
+     box-shadow: 0 8px 10px 5px black;
+     margin-bottom: 40px;
+    
+
+}
+
+#login{
+   /* margin-left: 650px;*/
+   margin-left: auto;
+   margin-right: auto;
+   width: 50%;
+   height:50%;
+   margin-bottom: 20px;
+   z-index:3;
+}
+
 
 #login input{
     width: 400px;
